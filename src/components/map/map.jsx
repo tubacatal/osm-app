@@ -1,10 +1,18 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
+import { MapContainer, TileLayer } from 'react-leaflet';
+import { BERLIN } from '../../assets/consts';
+import 'leaflet/dist/leaflet.css';
 import './map.css';
+
 
 const Map = () => {
   return (
-    <Paper className='map'>Map</Paper>
+    <MapContainer center={BERLIN} zoom={13} scrollWheelZoom={false} className="map">
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+    </MapContainer>
   );
 }
 

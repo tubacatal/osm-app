@@ -1,0 +1,14 @@
+.coordinates {
+  height: 20vh;
+  background-color: red;
+}
+
+.map {
+  height: 50vh;
+  background-color: green;
+}
+
+.data-display {
+  height: 20vh;
+  background-color: blue;
+}

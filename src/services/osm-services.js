@@ -1,7 +1,7 @@
 import axios from 'axios';
 import osmtogeojson from 'osmtogeojson';
 
-const getBoundingBox = async (left, bottom, right, top) => {
+const fetchBoundingBox = async (left, bottom, right, top) => {
 	try {
 		const { data } = await axios({
 			method: 'get',
@@ -22,4 +22,4 @@ const convertOsmToGeoJson = (osmData) => {
 	}
 };
 
-export { getBoundingBox, convertOsmToGeoJson };
+export { fetchBoundingBox, convertOsmToGeoJson };

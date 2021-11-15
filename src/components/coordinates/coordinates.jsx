@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { getBoundingBox, convertOsmToGeoJson } from '../../services/osm-services';
+import { fetchBoundingBox, convertOsmToGeoJson } from '../../services/osm-services';
 
 import './coordinates.css';
 
 const Coordinates = () => {
   const handleClick = async (left, bottom, right, top) => {
-    const osmData = await getBoundingBox(left, bottom, right, top);
+    const osmData = await fetchBoundingBox(left, bottom, right, top);
     console.log(osmData);
     if (osmData) {
       const geoJson = convertOsmToGeoJson(osmData);

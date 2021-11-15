@@ -1,4 +1,5 @@
 import React from 'react';
+import L from 'leaflet';
 import { MapContainer, FeatureGroup, TileLayer } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import { OSM, DRAW_OPTIONS } from '../../assets/consts';
@@ -7,12 +8,17 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import './map.css';
 
-
 const Map = () => {
   const handleCreated = (e) => {
-    // get bbox from rectangle
-    const bbox = e.layer.getBounds().toBBoxString();
-    console.log(bbox);
+    if (e.layerType === 'rectangle') {
+      // get bbox from rectangle
+      const bbox = e.layer.getBounds().toBBoxString();
+      console.log(bbox);
+    }
+  };
+
+  const handleEdited = (e) => {
+    console.log(e);
   };
 
   return (
@@ -21,6 +27,7 @@ const Map = () => {
         <EditControl
           position="topright"
           onCreated={handleCreated}
+          onEdited={handleEdited}
           draw={DRAW_OPTIONS}
         />
       </FeatureGroup>

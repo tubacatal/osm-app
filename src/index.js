@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import reportWebVitals from './reportWebVitals';
 
 import Header from "./components/header/header";
@@ -8,10 +10,10 @@ import HomePage from "./pages/homepage/homepage";
 import './index.css';
 
 ReactDOM.render(
-  <>
+  <Provider store={store}>
     <Header/>
     <HomePage />
-  </>,
+  </Provider>,
   document.getElementById('root')
 );
 

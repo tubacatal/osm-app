@@ -1,5 +1,4 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import { combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { mapReducer } from './map/reducer';
 
@@ -14,13 +13,12 @@ function makeStore(initialState) {
     return createStore(
       appReducer,
       initialState,
-      composeWithDevTools(applyMiddleware(thunk))
+      composeWithDevTools()
     );
   } else {
     return createStore(
       appReducer,
-      initialState,
-      applyMiddleware(thunk)
+      initialState
     );
   }
 }

@@ -1,7 +1,7 @@
 import { ADD_SHAPE } from './types';
   
 const initialState = {
-  shapes: undefined,
+  shapes: [],
 };
   
 export function mapReducer(state = initialState, action) {
@@ -9,6 +9,10 @@ export function mapReducer(state = initialState, action) {
     case ADD_SHAPE:
       return {
         ...state,
+        shapes: [
+          ...state.shapes,
+          { ...action.payload },
+         ],
       };
   
     default:

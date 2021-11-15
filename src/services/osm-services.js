@@ -13,6 +13,18 @@ const fetchBoundingBox = async (left, bottom, right, top) => {
 	}
 };
 
+const fetchAddress = async (lat, lon) => {
+	try {
+		const { data } = await axios({
+			method: 'get',
+			url: `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+		});
+		return data;
+	} catch (e) {
+		return false;
+	}
+};
+
 const convertOsmToGeoJson = (osmData) => {
 	try {
 		const geoJson = osmtogeojson(osmData);
@@ -22,4 +34,4 @@ const convertOsmToGeoJson = (osmData) => {
 	}
 };
 
-export { fetchBoundingBox, convertOsmToGeoJson };
+export { fetchBoundingBox, fetchAddress, convertOsmToGeoJson };

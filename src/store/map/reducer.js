@@ -1,4 +1,4 @@
-import { ADD_SHAPE } from './types';
+import { ADD_SHAPE, DELETE_SHAPE } from './types';
   
 const initialState = {
   shapes: [],
@@ -10,9 +10,18 @@ export function mapReducer(state = initialState, action) {
       return {
         ...state,
         shapes: [
-          ...state.shapes,
-          { ...action.payload },
+          ...state?.shapes,
+          { ...action?.payload },
          ],
+      };
+
+    case DELETE_SHAPE:
+      const existingShapes = state?.shapes || [];
+      delete existingShapes[action?.index];
+
+      return {
+        ...state,
+        shapes: [ ...state?.shapes ],
       };
   
     default:

@@ -3,8 +3,6 @@ import { Marker, Popup } from "react-leaflet";
 import { Icon } from 'leaflet';
 import { fetchAddress } from "../../../services/osm-services";
 
-import 'leaflet/dist/leaflet.css';
-
 import icon from '../../../assets/images/marker-icon.png';
 import iconRetina from '../../../assets/images/marker-icon-2x.png';
 import iconShadow from '../../../assets/images/marker-shadow.png';
@@ -13,7 +11,7 @@ const customIcon = new Icon({
 	iconRetinaUrl: iconRetina,
   iconUrl: icon,
   shadowUrl: iconShadow, 
-	iconSize: [20, 30]
+	iconSize: [25, 41]
 });
 
 const MarkerComponent = ({ position }) => {

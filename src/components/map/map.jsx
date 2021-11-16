@@ -1,26 +1,16 @@
-import L from 'leaflet';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MapContainer, FeatureGroup, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, FeatureGroup, TileLayer } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
+import { MdWarning } from 'react-icons/md';
 import { OSM, DRAW_OPTIONS } from '../../assets/consts';
 import { addShape } from '../../store/map/action';
+import GeoJSONComponent from './geojson/geojson';
 import MarkerComponent from './marker/marker';
+import NotificationToast from '../toaster/toaster';
 import { fetchBoundingBox, convertOsmToGeoJson } from "../../services/osm-services";
-import icon from '../../assets/images/marker-icon.png';
-import iconRetina from '../../assets/images/marker-icon-2x.png';
-import iconShadow from '../../assets/images/marker-shadow.png';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-draw/dist/leaflet.draw.css';
+
 import './map.css';
-
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: iconRetina,
-  iconUrl: icon,
-  shadowUrl: iconShadow
-});
 
 const Map = () => {
   const dispatch = useDispatch();
@@ -34,6 +24,7 @@ const Map = () => {
     // api call to fetch osm data for bbox, convert it to geojson
     const bBoxOsmData = await fetchBoundingBox(bboxData[0], bboxData[1], bboxData[2], bboxData[3]);
     const geoJSONData = convertOsmToGeoJson(bBoxOsmData);
+    // dispatch the data even geoJson is false - to render the marker at the center
     dispatch(addShape({
       center: bounds.getCenter(),
       geoJSON: geoJSONData,
@@ -41,7 +32,25 @@ const Map = () => {
   };
 
   const handleEdited = (e) => {
-    console.log(e);
+    const editedlayers = e.layers;
+    editedlayers.eachLayer((layer) => {
+      NotificationToast({
+        content: <h5>Shape Edited</h5>,
+        type: 'info',
+        autoClose: 5000,
+      }); 
+    });
+  };
+
+  const handleDeleted = (e) => {
+    const deletedlayers = e.layers;
+    deletedlayers.eachLayer((layer) => {
+      NotificationToast({
+        content: <h5>Shape Deleted</h5>,
+        type: 'warning',
+        autoClose: 5000,
+      }); 
+    });
   };
 
   return (
@@ -51,15 +60,12 @@ const Map = () => {
           position="topright"
           onCreated={handleCreated}
           onEdited={handleEdited}
+          onDeleted={handleDeleted}
           draw={DRAW_OPTIONS}
         />
       </FeatureGroup>
-      {data?.map((shape, index) => 
-        <div key={index}>
-          <GeoJSON data={shape?.geoJSON} />
-          <MarkerComponent position={[shape?.center?.lat, shape?.center?.lng]} />
-        </div>
-      )}
+      {data?.map((shape, index) => <GeoJSONComponent key={index} data={shape?.geoJSON} />)}
+      {data?.map((shape, index) => <MarkerComponent key={index} position={[shape?.center?.lat, shape?.center?.lng]} />)}
       <TileLayer attribution={OSM.attribution} url={OSM.url} />
     </MapContainer>
   );

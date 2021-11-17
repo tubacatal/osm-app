@@ -7,15 +7,16 @@ import icon from '../../../assets/images/marker-icon.png';
 import iconRetina from '../../../assets/images/marker-icon-2x.png';
 import iconShadow from '../../../assets/images/marker-shadow.png';
 
-const customIcon = new Icon({
+const defaultIcon = new Icon({
 	iconRetinaUrl: iconRetina,
   iconUrl: icon,
   shadowUrl: iconShadow, 
 	iconSize: [25, 41]
 });
 
-const MarkerComponent = ({ position }) => {
+const MarkerComponent = ({ position, icon }) => {
 	const [popupContent, setPopupContent] = useState("Address couldn't be found.");
+  const markerIcon = icon ? icon : defaultIcon;
 
 	const onClickHandler = async () => {
 		const response = await fetchAddress(position[0], position[1]);
@@ -23,7 +24,10 @@ const MarkerComponent = ({ position }) => {
 	};
 
   return (
-    <Marker position={position} icon={customIcon} eventHandlers={{ click: onClickHandler }}>
+    <Marker 
+      position={position} 
+      icon={markerIcon} 
+      eventHandlers={{ click: onClickHandler }}>
       <Popup>{popupContent}</Popup>
     </Marker>
   )

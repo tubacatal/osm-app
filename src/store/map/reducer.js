@@ -1,7 +1,11 @@
-import { ADD_SHAPE, DELETE_SHAPE } from './types';
+import { 
+  ADD_SHAPE, 
+  UPDATE_SHAPE,
+  DELETE_SHAPE
+} from './types';
   
 const initialState = {
-  shapes: [],
+  shapes: {},
 };
   
 export function mapReducer(state = initialState, action) {
@@ -9,19 +13,28 @@ export function mapReducer(state = initialState, action) {
     case ADD_SHAPE:
       return {
         ...state,
-        shapes: [
+        shapes: {
           ...state?.shapes,
-          { ...action?.payload },
-         ],
+          [action?.id]: { ...action?.payload },
+        },
+      };
+
+    case UPDATE_SHAPE:
+      return {
+        ...state,
+        shapes: {
+          ...state?.shapes,
+          [action?.id]: { ...action?.payload },
+        },
       };
 
     case DELETE_SHAPE:
-      const existingShapes = state?.shapes || [];
-      delete existingShapes[action?.index];
+      const existingShapes = { ...state?.shapes } || {};
+      delete existingShapes[action?.id];
 
       return {
         ...state,
-        shapes: [ ...state?.shapes ],
+        shapes: { ...existingShapes },
       };
   
     default:

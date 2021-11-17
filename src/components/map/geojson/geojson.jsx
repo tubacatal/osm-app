@@ -24,9 +24,9 @@ const GeoJSONComponent = ({ data }) => {
 	};
 
   return (
-    <GeoJSON pathOptions={{ color: "green" }} data={data} eventHandlers={{ click: (e) => onClickHandler(e) }}>
-			<Popup>{popupContent}</Popup>
-		</GeoJSON>
+  <GeoJSON pathOptions={{ color: "green" }} data={data} eventHandlers={{ click: (e) => onClickHandler(e) }}>
+		<Popup>{popupContent}</Popup>
+	</GeoJSON>
   )
 }
 

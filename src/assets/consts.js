@@ -10,22 +10,22 @@ export const OSM = {
 export const DRAW_OPTIONS = {
   polyline: {
     shapeOptions: {
-        color: "#ff0000"
+      color: "#FFFF00"
     },
   },
   polygon: {
     shapeOptions: {
-        color: "#ff0000"
+      color: "#FFFF00"
     },
   },
   rectangle: {
     shapeOptions: {
-        color: "#ff0000"
+      color: "#FFFF00"
     },
   },
   circle: {
     shapeOptions: {
-        color: "#ff0000"
+      color: "#FFFF00"
     },
   },
   marker: false,

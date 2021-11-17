@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MapContainer, FeatureGroup, TileLayer } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
-import { OSM, DRAW_OPTIONS } from '../../assets/consts';
+import { OSM, DRAW_OPTIONS, EDIT_OPTIONS } from '../../assets/consts';
 import { addShape, deleteShape, updateShape } from '../../store/map/action';
 import GeoJSONComponent from './geojson/geojson';
 import MarkerComponent from './marker/marker';
@@ -16,6 +16,7 @@ const Map = () => {
   const shapesData = useSelector(state => state.map.shapes);
   const text = L.divIcon({
     iconSize:null,
+    iconAnchor: [25, 25],
     html: "<h5>Loading...</h5>"
   });
 
@@ -88,8 +89,9 @@ const Map = () => {
           position="topright"
           onCreated={handleCreated}
           onEdited={handleEdited}
-          onDeleted={handleDeleted}
+          // onDeleted={handleDeleted}
           draw={DRAW_OPTIONS}
+          edit={EDIT_OPTIONS}
         />
       </FeatureGroup>
       {

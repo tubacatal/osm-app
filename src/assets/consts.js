@@ -31,3 +31,7 @@ export const DRAW_OPTIONS = {
   marker: false,
   circlemarker: false,
 };
+
+export const EDIT_OPTIONS = {
+  remove: false,
+};
